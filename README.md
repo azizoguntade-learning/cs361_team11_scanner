@@ -12,7 +12,5 @@ Vincent Bui
 
 [Hw Syntax for JAY](https://docs.google.com/document/d/11JuiHaq0C5c0OkRa0FFgYsvuvdOBDdsv/edit)
 
-[Scanner HW]
 
-[Parser HW]
 
