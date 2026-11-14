@@ -224,7 +224,7 @@ public class TokenStream {
 		return (char) i;
 	}
 
-	private boolean isKeyword(String s) {
+	private boolean isKeyword(String s) { // Checks for the type of keyword the string is
 		// TODO TO BE COMPLETED 
 		return s.equals("int") || s.equals("boolean") || s.equals("if")|| s.equals("else")|| s.equals("while");
 	}
@@ -248,7 +248,7 @@ public class TokenStream {
 		}
 	}
 
-	private boolean isSeparator(char c) {
+	private boolean isSeparator(char c) { // Checks for characters that start with seperators 
 		// TODO TO BE COMPLETED
 		return (c == '{' || c == '}' || c == '(' || c == ')' || c == ';' || c == ',');
 		
@@ -264,7 +264,7 @@ public class TokenStream {
 		return (c >= 'a' && c <= 'z' || c >= 'A' && c <= 'Z');
 	}
 
-	private boolean isDigit(char c) {
+	private boolean isDigit(char c) { // Checks for characters that start with digits
 		// TODO TO BE COMPLETED
 		return(c >= '0' && c <= '9');
 	}
