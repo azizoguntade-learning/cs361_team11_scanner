@@ -79,14 +79,48 @@ public class TokenStream {
 			switch (nextChar) {
 			// TODO TO BE COMPLETED WHERE NEEDED
 			case '<':
-				// <=
-			case '>':
-				// >=
-			case '=':
-				// ==
-			case '!':
-				// !=
+				// Look for <=
 				nextChar = readChar();
+				if (nextChar == '='){
+					t.setValue(t.getValue() + nextChar);
+					nextChar = readChar();
+					return t;
+				} else {
+					t.setType("Other");
+				}
+				return t;
+			case '>':
+				// Look for >=
+				nextChar = readChar();
+				if(nextChar == '='){
+					t.setValue(t.getValue() + nextChar);
+					nextChar = readChar();
+					return t;
+				} else {
+					t.setType("Other");
+				}
+				return t; 				
+			case '=':
+				// Look for ==
+				nextChar = readChar();
+				if(nextChar == '='){
+					t.setValue(t.getValue() + nextChar);
+					nextChar = readChar();
+					return t;
+				} else {
+					t.setType("Other");
+				}
+				return t; // If == is read, the token is returned				
+			case '!':
+				// Look for !=
+				nextChar = readChar();
+				if (nextChar == '='){
+					t.setValue(t.getValue() + nextChar);
+					nextChar = readChar();
+					return t;
+				} else {
+					t.setType("Other");
+				}
 				return t;
 			case '|':
 				// Look for ||
@@ -101,7 +135,7 @@ public class TokenStream {
 				return t;
 
 			case '&':
-				// Look or &&
+				// Look for &&
 				nextChar = readChar();
 				if (nextChar == '&') {
 					t.setValue(t.getValue() + nextChar);
