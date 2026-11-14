@@ -85,8 +85,6 @@ public class TokenStream {
 					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
 					return t;
-				} else {
-					t.setType("Other");
 				}
 				return t;
 			case '>':
@@ -96,8 +94,6 @@ public class TokenStream {
 					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
 					return t;
-				} else {
-					t.setType("Other");
 				}
 				return t; 				
 			case '=':
@@ -107,10 +103,8 @@ public class TokenStream {
 					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
 					return t;
-				} else {
-					t.setType("Other");
-				}
-				return t; // If == is read, the token is returned				
+				} 
+				return t; 	
 			case '!':
 				// Look for !=
 				nextChar = readChar();
@@ -118,8 +112,6 @@ public class TokenStream {
 					t.setValue(t.getValue() + nextChar);
 					nextChar = readChar();
 					return t;
-				} else {
-					t.setType("Other");
 				}
 				return t;
 			case '|':
@@ -253,13 +245,14 @@ public class TokenStream {
 
 	private boolean isSeparator(char c) {
 		// TODO TO BE COMPLETED
-		return false;
+		return (c == '{' || c == '}' || c == '(' || c == ')' || c == ';' || c == ',');
+		
 	}
 
 	private boolean isOperator(char c) {
 		// Checks for characters that start operators
 		// TODO TO BE COMPLETED
-		return false;
+		return (c == '+' || c == '-' || c == '/' || c == '<' || c == '>' || c == '=' || c == '!'|| c == '&' || c == '|');
 	}
 
 	private boolean isLetter(char c) {
@@ -268,7 +261,11 @@ public class TokenStream {
 
 	private boolean isDigit(char c) {
 		// TODO TO BE COMPLETED
-		return false;
+		if(c >= '0' && c <= '9'){
+			return true;
+		} else{
+			return false;
+		}
 	}
 
 	public boolean isEndofFile() {
