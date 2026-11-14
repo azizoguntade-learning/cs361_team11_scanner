@@ -264,11 +264,7 @@ public class TokenStream {
 
 	private boolean isDigit(char c) {
 		// TODO TO BE COMPLETED
-		if(c >= '0' && c <= '9'){
-			return true;
-		} else{
-			return false;
-		}
+		return(c >= '0' && c <= '9');
 	}
 
 	public boolean isEndofFile() {
