@@ -152,6 +152,8 @@ public class TokenStream {
 		if (isSeparator(nextChar)) {
 			t.setType("Separator");
 			// TODO TO BE COMPLETED
+			t.setValue(Character.toString(nextChar)); // Saves the separator character into the token
+   			nextChar = readChar(); // Moves onto the next character 
 			return t;
 		}
 
