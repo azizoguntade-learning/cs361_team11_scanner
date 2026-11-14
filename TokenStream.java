@@ -42,6 +42,13 @@ public class TokenStream {
 	public Token nextToken() { // Main function of the scanner
 								// Return next token type and value.
 		Token t = new Token();
+
+		// If Eof is true before nextToken is called, don't parse to nextChar 
+		if(isEof){
+			t.setType("Eof");
+			t.setValue("");
+			return t;
+		}
 		t.setType("Other"); // For now it is Other
 		t.setValue("");
 
@@ -182,6 +189,14 @@ public class TokenStream {
 				t.setValue(t.getValue() + nextChar);
 				nextChar = readChar();
 			}
+			
+			// If a value with numbers and letters (e.g, 235djb) is passed, this prevents the 235 from being read
+			// as a literal and the djb hanging. This throws a error. 
+
+			if (isLetter(nextChar)){
+				throw new IllegalArgumentException("Lexical Error: Invalid identifier/number combination starting with " + t.getValue() + nextChar);
+			}
+
 			// An Integer-Literal is to be only followed by a space,
 			// an operator, or a separator.
 			if (isEndOfToken(nextChar)) {// If token is valid, returns.
@@ -203,6 +218,11 @@ public class TokenStream {
 		
 		// Finally check for whitespaces and bypass them
 		skipWhiteSpace();
+
+		// If an illegal symbol is encountered, throw an exception instead of collecting it
+		if (!t.getValue().isEmpty()) {
+            throw new IllegalArgumentException("Lexical Error: Unrecognized or illegal token '" + t.getValue() + "'");
+        }
 
 		return t;
 	}
