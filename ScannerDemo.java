@@ -8,7 +8,7 @@ public class ScannerDemo {
 	private static int counter = 1;
 
 	public static void main(String args[]) {
-		if(args.length > 0){
+		if(args != null && args.length > 0 && args[0] != null){
 			file1 = args[0];
 		}
 
@@ -17,7 +17,10 @@ public class ScannerDemo {
 		while (!ts.isEndofFile()) {
 			// TO BE COMPLETED
 			Token tk = ts.nextToken();
-			if (tk == null || tk.getValue() == null || tk.getValue().equals("")){
+			if (tk == null) {
+				break;
+			}
+			if (tk.getValue() == null || tk.getValue().equals("")) {
 				continue;
 			}
 			System.out.println("Token " + counter++ + " - Type: " + tk.getType() + " - Value: " + tk.getValue());

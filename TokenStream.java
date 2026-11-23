@@ -39,6 +39,18 @@ public class TokenStream {
 		}
 	}
 
+	private void closeReader() {
+		if (input != null) {
+			try {
+				input.close();
+			} catch (IOException e) {
+				// ignore close failure
+			} finally {
+				input = null;
+			}
+		}
+	}
+
 	public Token nextToken() { // Main function of the scanner
 								// Return next token type and value.
 		Token t = new Token();
@@ -229,16 +241,20 @@ public class TokenStream {
 
 	private char readChar() {
 		int i = 0;
-		if (isEof)
+		if (isEof || input == null) {
+			isEof = true;
 			return (char) 0;
+		}
 		System.out.flush();
 		try {
 			i = input.read();
 		} catch (IOException e) {
+			closeReader();
 			System.exit(-1);
 		}
 		if (i == -1) {
 			isEof = true;
+			closeReader();
 			return (char) 0;
 		}
 		return (char) i;
