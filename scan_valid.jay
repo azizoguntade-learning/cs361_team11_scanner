@@ -1,0 +1,9 @@
+void main() {
+    int i, count;
+    boolean flag;
+    i = 31;
+    flag = true;
+    while (i >= 0) {
+        i = i - 1;
+    }
+}
