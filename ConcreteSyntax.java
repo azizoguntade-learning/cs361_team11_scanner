@@ -46,7 +46,7 @@ public class ConcreteSyntax {
 	public Program program() {
 		// finished
 		// Program --> main '{' Declarations Statements '}'
-		String[] header = {"void", "main", "(", ")", "{";
+		String[] header = {"void", "main", "(", ")", "{"};
 		Program p = new Program();
 		for (int i = 0; i < header.length; i++)
 			// bypass " main { "
@@ -129,7 +129,7 @@ public class ConcreteSyntax {
 		else if (token.getValue().equals("while")) {
 			// WhileStatement
 			// done
-			s.whileStatement();
+			s = whileStatement();
 		} else if (token.getType().equals("Identifier")) { // Assignment
 			// done
 			s = assignment();
@@ -189,7 +189,7 @@ public class ConcreteSyntax {
 			b = new Binary();
 			// done
 			b.term1 = e;
-			b.op new Operator(token.getValue());
+			b.op = new Operator(token.getValue());
 			token = input.nextToken();
 			b.term2 = relation();
 			e = b;
@@ -207,12 +207,12 @@ public class ConcreteSyntax {
 		while (token.getValue().equals("<") || token.getValue().equals("<=")
 				|| token.getValue().equals(">")
 				|| token.getValue().equals(">=")
-			    || token.getValue().equals("=="))
+			    || token.getValue().equals("==")
 				|| token.getValue().equals("!=")) {
 			b = new Binary();
 			// done
 			b.term1 = e;
-			b.op new Operator(token.getValue());
+			b.op = new Operator(token.getValue());
 			token = input.nextToken();
 			b.term2 = addition();
 			e = b;
@@ -228,7 +228,7 @@ public class ConcreteSyntax {
 		while (token.getValue().equals("+") || token.getValue().equals("-")) {
 			b = new Binary();
 			b.term1 = e;
-			b.op new Operator(token.getValue());
+			b.op = new Operator(token.getValue());
 			token = input.nextToken();
 			b.term2 = term();
 			e = b;
@@ -299,6 +299,15 @@ public class ConcreteSyntax {
 		// IfStatement --> if ( Expression ) Statement { else Statement }opt
 		Conditional c = new Conditional();
 		// TODO TO BE COMPLETED
+		match("if"); 
+		match("(");
+		c.test = expression();
+		match(")");
+		c.thenbranch = statement();
+		if (token.getValue().equals("else")) {
+			token = input.nextToken();
+			c.elsebranch = statement();
+		}
 		return c;
 	}
 
@@ -306,17 +315,12 @@ public class ConcreteSyntax {
 		// WhileStatement --> while ( Expression ) Statement
 		Loop l = new Loop();
 		// done
-		match("if");
+		match("while"); 
 		match("(");
-		c.test = expression();
+		l.test = expression();
 		match(")");
-		c.thenbranch = statement();
-		if (token.getValue().equals("else"))
-		{
-			token = input.nextToken();
-			c.elsebranch = statement();
-		}
-		return c;
+		l.body = statement();
+		return l;
 	}
 
 	private boolean isInteger(String s) {
