@@ -53,8 +53,7 @@ public class ConcreteSyntax {
 
 	// Implementation of the Recursive Descent Parser
 
-	public Program program() {
-		// finished
+	public Program program() {	
 		// Program --> main '{' Declarations Statements '}'
 		String[] header = {"void", "main", "(", ")", "{"};
 		Program p = new Program();
@@ -68,7 +67,6 @@ public class ConcreteSyntax {
 	}
 
 	private Declarations declarations() {
-		// finished
 		// Declarations --> { Declaration }*
 		Declarations ds = new Declarations();
 		while (tokenHasValue("int") || tokenHasValue("boolean")) {
@@ -85,7 +83,7 @@ public class ConcreteSyntax {
 	}
 
 	private Type type() {
-		// done
+		
 		// Type --> integer | bool
 		Type t = null;
 		if (tokenHasValue("int"))
@@ -136,11 +134,10 @@ public class ConcreteSyntax {
 		} else if (tokenHasValue("if")) // IfStatement
 			s = ifStatement();
 		else if (tokenHasValue("while")) {
-			// WhileStatement
-			// done
+			// WhileStatement	
 			s = whileStatement();
 		} else if (tokenHasType("Identifier")) { // Assignment
-			// done
+			
 			s = assignment();
 			
 		} else
@@ -161,7 +158,6 @@ public class ConcreteSyntax {
 		// Assignment --> Identifier := Expression ;
 		Assignment a = new Assignment();
 		if (tokenHasType("Identifier")) {
-			// done
 			a.target = new Variable();
 			a.target.id = token.getValue();
 			token = input.nextToken();
@@ -196,7 +192,7 @@ public class ConcreteSyntax {
 		e = relation();
 		while (tokenHasValue("&&")) {
 			b = new Binary();
-			// done
+			
 			b.term1 = e;
 			b.op = new Operator(token.getValue());
 			token = input.nextToken();
@@ -211,15 +207,13 @@ public class ConcreteSyntax {
 		Binary b;
 		Expression e;
 		e = addition();
-		// done
-		
+			
 		while (tokenHasValue("<") || tokenHasValue("<=")
 				|| tokenHasValue(">")
 				|| tokenHasValue(">=")
 			    || tokenHasValue("==")
 				|| tokenHasValue("!=")) {
 			b = new Binary();
-			// done
 			b.term1 = e;
 			b.op = new Operator(token.getValue());
 			token = input.nextToken();
@@ -252,7 +246,7 @@ public class ConcreteSyntax {
 		e = negation();
 		while (tokenHasValue("*") || tokenHasValue("/")) {
 			b = new Binary();
-			// done
+			
 			b.term1 = e;
 			b.op = new Operator(token.getValue());
 			token = input.nextToken();
@@ -307,7 +301,7 @@ public class ConcreteSyntax {
 	private Conditional ifStatement() {
 		// IfStatement --> if ( Expression ) Statement { else Statement }opt
 		Conditional c = new Conditional();
-		// TODO TO BE COMPLETED
+
 		match("if"); 
 		match("(");
 		c.test = expression();
@@ -322,8 +316,7 @@ public class ConcreteSyntax {
 
 	private Loop whileStatement() {
 		// WhileStatement --> while ( Expression ) Statement
-		Loop l = new Loop();
-		// done
+		Loop l = new Loop();	
 		match("while"); 
 		match("(");
 		l.test = expression();
