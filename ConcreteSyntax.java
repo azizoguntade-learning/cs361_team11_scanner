@@ -23,10 +23,20 @@ public class ConcreteSyntax {
 		token = input.nextToken(); // retrieve its first Token
 	}
 
+	private boolean tokenHasValue(String val) {
+		return token != null && token.getValue() != null && token.getValue().equals(val);
+	}
+
+	private boolean tokenHasType(String type) {
+		return token != null && token.getType() != null && token.getType().equals(type);
+	}
+
 	// Method that prints a syntax error message
 	private String SyntaxError(String tok) {
+		String sawType = (token != null && token.getType() != null) ? token.getType() : "EOF";
+		String sawVal = (token != null && token.getValue() != null) ? token.getValue() : "";
 		String s = "Syntax error - Expecting: " + tok + " But saw: "
-				+ token.getType() + " = " + token.getValue();
+				+ sawType + " = " + sawVal;
 		System.out.println(s);
 		return s;
 		// System.exit(0);
@@ -324,6 +334,8 @@ public class ConcreteSyntax {
 	}
 
 	private boolean isInteger(String s) {
+		if (s == null || s.isEmpty())
+			return false;
 		boolean result = true;
 		for (int i = 0; i < s.length(); i++)
 			if ('0' > s.charAt(i) || '9' < s.charAt(i))
