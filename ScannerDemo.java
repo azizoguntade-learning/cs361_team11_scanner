@@ -4,17 +4,23 @@
  * 
  */
 public class ScannerDemo {
-
-	// This needs to be changed !
-	private static String file1 = "C:\\Users\\cscharff\\eclipse-workspace\\ScannerSolution\\src\\prog1.jay";
+	private static String file1 = "prog1.jay";
 	private static int counter = 1;
 
 	public static void main(String args[]) {
+		if(args.length > 0){
+			file1 = args[0];
+		}
+
 		TokenStream ts = new TokenStream(file1);
 		System.out.println(file1);
 		while (!ts.isEndofFile()) {
 			// TO BE COMPLETED
-			// System.out.println("Token " + counter++ + " - Type: " + tk.getType() + " - Value: " + tk.getValue());
+			Token tk = ts.nextToken();
+			if (tk == null || tk.getValue() == null || tk.getValue().equals("")){
+				continue;
+			}
+			System.out.println("Token " + counter++ + " - Type: " + tk.getType() + " - Value: " + tk.getValue());
 		}
 	}
 }
