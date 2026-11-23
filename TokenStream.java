@@ -246,7 +246,7 @@ public class TokenStream {
 
 	private boolean isKeyword(String s) { // Checks for the type of keyword the string is
 		// Completed 
-		return s.equals("int") || s.equals("boolean") || s.equals("if")|| s.equals("else")|| s.equals("while");
+		return s.equals("int") || s.equals("boolean") || s.equals("if")|| s.equals("else")|| s.equals("while") || s.equals("void") || s.equals("main");
 	}
 
 	private boolean isWhiteSpace(char c) {
@@ -258,7 +258,7 @@ public class TokenStream {
 	}
 
 	private boolean isEndOfToken(char c) { // Is the value a seperate token?
-		return (isWhiteSpace(nextChar) || isOperator(nextChar) || isSeparator(nextChar) || isEof);
+		return (isWhiteSpace(c) || isOperator(c) || isSeparator(c) || isEof);
 	}
 
 	private void skipWhiteSpace() {
